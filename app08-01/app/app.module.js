@@ -9,16 +9,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var AboutComponent = (function () {
-    function AboutComponent() {
+var platform_browser_1 = require('@angular/platform-browser');
+var app_component_1 = require('./app.component');
+var about_component_1 = require('./about.component');
+var car_module_1 = require('./cars/car.module');
+var app_routing_1 = require('./app.routing');
+var AppModule = (function () {
+    function AppModule() {
     }
-    AboutComponent = __decorate([
-        core_1.Component({
-            template: "\n      <h3>About Component</h3>\n      <p>This is an Angular 2 application to demonstrate the use of the new Component Router!</p>\n    "
+    AppModule = __decorate([
+        core_1.NgModule({
+            imports: [platform_browser_1.BrowserModule, app_routing_1.routing, car_module_1.CarModule],
+            declarations: [app_component_1.AppComponent, about_component_1.AboutComponent],
+            bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])
-    ], AboutComponent);
-    return AboutComponent;
+    ], AppModule);
+    return AppModule;
 }());
-exports.AboutComponent = AboutComponent;
-//# sourceMappingURL=about.component.js.map
+exports.AppModule = AppModule;
+//# sourceMappingURL=app.module.js.map

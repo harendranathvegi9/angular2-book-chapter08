@@ -1,5 +1,5 @@
-import {Component} from 'angular2/core';
-import {RouteParams, ROUTER_DIRECTIVES} from 'angular2/router';
+import {Component} from '@angular/core';
+import {Router, ActivatedRoute} from '@angular/router';
 import {Car} from './car';
 import {CarService} from './car.service';
 
@@ -46,19 +46,26 @@ import {CarService} from './car.service';
           </tbody>
         </table>
       </div>
-      <a class="btn btn-primary btn-sm" [routerLink]="['CarsList']">Back to List</a>
-    `,
-    directives: [ROUTER_DIRECTIVES]
+      <a class="btn btn-primary btn-sm" routerLink="/cars">Back to List</a>
+    `
 })
 export class CarDetailComponent {
   currentCar: Car;
-  
+  private sub: any;
+
   constructor(
-    private _routeParams:RouteParams,
-    private _service:CarService){}
-    
+    private _route: ActivatedRoute,
+    private _router: Router,
+    private _service: CarService){}
+
     ngOnInit() {
-      let id = this._routeParams.get('id');
-      this._service.getCar(id).then(currentCar => this.currentCar = currentCar);
+      this.sub = this._route.params.subscribe(params => {
+        let id = params['id'];
+        this._service.getCar(id).then(currentCar => this.currentCar = currentCar);
+      });
+    }
+
+    ngOnDestroy() {
+      this.sub.unsubscribe();
     }
 }
